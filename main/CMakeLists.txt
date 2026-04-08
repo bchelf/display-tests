@@ -1,0 +1,13 @@
+idf_component_register(
+    SRCS
+        "main.c"
+        "board_qualia_s3.c"
+        "pca9554.c"
+        "panel_480x480.c"
+        "rgb_display.c"
+    INCLUDE_DIRS
+        "."
+    REQUIRES
+        driver
+        esp_lcd
+)

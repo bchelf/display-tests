@@ -1,0 +1,18 @@
+Command: ninja all
+[1/9] Performing build step for 'bootloader'
+[1/1] cd /Users/bchelf/display-tests/build/bootloader/esp-idf/esptool_py && /Users/bchelf/.espressif/python_env/idf5.5_py3.14_env/bin/python /Users/bchelf/esp/esp-idf/components/partition_table/check_sizes.py --offset 0x8000 bootloader 0x0 /Users/bchelf/display-tests/build/bootloader/bootloader.bin
+Bootloader binary size 0x5160 bytes. 0x2ea0 bytes (36%) free.
+[2/9] Building C object esp-idf/main/CMakeFiles/__idf_main.dir/panel_480x480.c.obj
+[3/9] No install step for 'bootloader'
+[4/9] Completed 'bootloader'
+[5/9] Linking C static library esp-idf/main/libmain.a
+[6/9] Generating esp-idf/esp_system/ld/sections.ld
+[7/9] Linking CXX executable qualia_s3_rgb480.elf
+[8/9] Generating binary image from built executable
+esptool.py v4.12.dev1
+Creating esp32s3 image...
+Merged 2 ELF sections
+Successfully created esp32s3 image.
+Generated /Users/bchelf/display-tests/build/qualia_s3_rgb480.bin
+[9/9] cd /Users/bchelf/display-tests/build/esp-idf/esptool_py && /Users/bchelf/.espressif/python_env/idf5.5_py3.14_env/bin/python /Users/bchelf/esp/esp-idf/components/partition_table/check_sizes.py --offset 0x8000 partition --type app /Users/bchelf/display-tests/build/partition_table/partition-table.bin /Users/bchelf/display-tests/build/qualia_s3_rgb480.bin
+qualia_s3_rgb480.bin binary size 0x3da40 bytes. Smallest app partition is 0x100000 bytes. 0xc25c0 bytes (76%) free.

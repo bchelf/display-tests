@@ -1,0 +1,2 @@
+source /Users/bchelf/display-tests/build/bootloader/gdbinit/symbols
+source /Users/bchelf/display-tests/build/bootloader/gdbinit/connect
