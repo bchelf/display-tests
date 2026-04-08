@@ -51,7 +51,7 @@ esp_err_t rgb_display_init(void)
         .data_width = 16,
         .bits_per_pixel = 16,
         .num_fbs = 1,
-        .bounce_buffer_size_px = 0,
+        .bounce_buffer_size_px = 480 * 10,
         .disp_gpio_num = -1,
         .pclk_gpio_num = LCD_PCLK,
         .vsync_gpio_num = LCD_VSYNC,

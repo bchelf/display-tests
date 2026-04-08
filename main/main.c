@@ -14,16 +14,16 @@
 static const char *TAG = "main";
 
 typedef enum {
-    DISPLAY_MODE_TEST_PATTERN = 0,
-    DISPLAY_MODE_WHITE,
-    DISPLAY_MODE_GRAY,
+    DISPLAY_MODE_WHITE = 0,
+    DISPLAY_MODE_PIXEL_REFRESH,
     DISPLAY_MODE_RED,
     DISPLAY_MODE_GREEN,
     DISPLAY_MODE_BLUE,
+    DISPLAY_MODE_TEST_PATTERN,
     DISPLAY_MODE_COUNT,
 } display_mode_t;
 
-static volatile display_mode_t s_display_mode = DISPLAY_MODE_TEST_PATTERN;
+static volatile display_mode_t s_display_mode = DISPLAY_MODE_WHITE;
 
 static inline uint16_t rgb565(uint8_t r5, uint8_t g6, uint8_t b5)
 {
@@ -33,18 +33,18 @@ static inline uint16_t rgb565(uint8_t r5, uint8_t g6, uint8_t b5)
 static const char *display_mode_name(display_mode_t mode)
 {
     switch (mode) {
-    case DISPLAY_MODE_TEST_PATTERN:
-        return "test-pattern";
     case DISPLAY_MODE_WHITE:
         return "white";
-    case DISPLAY_MODE_GRAY:
-        return "gray";
+    case DISPLAY_MODE_PIXEL_REFRESH:
+        return "pixel-refresh";
     case DISPLAY_MODE_RED:
         return "red";
     case DISPLAY_MODE_GREEN:
         return "green";
     case DISPLAY_MODE_BLUE:
         return "blue";
+    case DISPLAY_MODE_TEST_PATTERN:
+        return "test-pattern";
     default:
         return "unknown";
     }
@@ -142,14 +142,16 @@ static void render_mode(display_mode_t mode)
     ESP_LOGI(TAG, "render mode: %s", display_mode_name(mode));
 
     switch (mode) {
-    case DISPLAY_MODE_TEST_PATTERN:
-        render_test_pattern();
-        break;
     case DISPLAY_MODE_WHITE:
         fill_screen(rgb565(31, 63, 31));
         break;
-    case DISPLAY_MODE_GRAY:
-        fill_screen(rgb565(16, 32, 16));
+    case DISPLAY_MODE_PIXEL_REFRESH:
+        ESP_LOGI(TAG, "pixel refresh: flashing white/black 600 frames");
+        for (int i = 0; i < 600; i++) {
+            fill_screen((i & 1) ? rgb565(31, 63, 31) : rgb565(0, 0, 0));
+            vTaskDelay(pdMS_TO_TICKS(16));
+        }
+        fill_screen(rgb565(31, 63, 31));
         break;
     case DISPLAY_MODE_RED:
         fill_screen(rgb565(31, 0, 0));
@@ -160,8 +162,11 @@ static void render_mode(display_mode_t mode)
     case DISPLAY_MODE_BLUE:
         fill_screen(rgb565(0, 0, 31));
         break;
-    default:
+    case DISPLAY_MODE_TEST_PATTERN:
         render_test_pattern();
+        break;
+    default:
+        fill_screen(rgb565(0, 0, 0));
         break;
     }
 }
